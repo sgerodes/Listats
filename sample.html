@@ -1,0 +1,760 @@
+<!doctype html>
+<html lang="en">
+<!-- Lichess is open source! See https://github.com/ornicar/lila -->
+<head>
+    <meta charset="utf-8">
+
+
+    <title>Play A.I. level 2 in HL8f6Wmf • lichess.org</title>
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:500&text=0123456789:." rel="stylesheet">
+
+
+    <link href="//lichess1.org/assets/stylesheets/common.css?v=2062" type="text/css" rel="stylesheet"/>
+    <link href="//lichess1.org/assets/stylesheets/board.css?v=2062" type="text/css" rel="stylesheet"/>
+
+
+    <style type="text/css">
+        div.lichess_game,
+        div.board_and_ground {
+            height: 584px;
+            padding-top: 0;
+        }
+
+        #chat {
+            height: 426px;
+        }
+
+        div.lichess_game .cg-board-wrap,
+        div.board_and_ground .cg-board-wrap {
+            width: 584px;
+            height: 584px;
+        }
+
+        .underboard {
+            width: 841px;
+        }
+
+        div.underboard .center,
+        .progress_bar_container {
+            width: 584px;
+        }
+
+        body > div.content {
+            margin-left: calc(50% - 538px);
+        }
+
+    </style>
+
+
+    <link href="//lichess1.org/assets/stylesheets/chat.css?v=2062" type="text/css" rel="stylesheet"/>
+    <link id="piece-sprite" href="//lichess1.org/assets/stylesheets/piece/cburnett.css?v=2062" type="text/css"
+          rel="stylesheet"/>
+    <meta content="gerodes (1662) plays A.I. level 2 in a casual Correspondence game of chess. Game is still being played after 26 moves. Click to replay, analyse, and discuss the game!"
+          name="description">
+    <link id="favicon" rel="shortcut icon" href="//lichess1.org/assets/images/favicon-32-white.png"
+          type="image/x-icon"/>
+    <link rel="mask-icon" href="//lichess1.org/assets/favicon.svg" color="black">
+    <link rel="icon" type="image/png" href="//lichess1.org/assets/favicon.256.png" sizes="256x256"/>
+    <link rel="icon" type="image/png" href="//lichess1.org/assets/favicon.128.png" sizes="128x128"/>
+    <link rel="icon" type="image/png" href="//lichess1.org/assets/favicon.64.png" sizes="64x64"/>
+    <meta content="noindex, nofollow" name="robots">
+    <meta name="google" content="notranslate"/>
+    <meta property="og:title" content="Correspondence Chess • gerodes vs A.I. level 2"/>
+    <meta property="og:description"
+          content="gerodes (1662) plays A.I. level 2 in a casual Correspondence game of chess. Game is still being played after 26 moves. Click to replay, analyse, and discuss the game!"/>
+    <meta property="og:url" content="https://lichess.org/HL8f6Wmf"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:site_name" content="lichess.org"/>
+    <meta property="og:image" content="//lichess1.org/game/export/png/HL8f6Wmf.png"/>
+    <meta name="twitter:card" content="summary"/>
+    <meta name="twitter:title" content="Correspondence Chess • gerodes vs A.I. level 2"/>
+    <meta name="twitter:description"
+          content="gerodes (1662) plays A.I. level 2 in a casual Correspondence game of chess. Game is still being played after 26 moves. Click to replay, analyse, and discuss the game!"/>
+    <meta name="twitter:site" content="@lichess"/>
+    <meta name="twitter:image" content="//lichess1.org/game/export/png/HL8f6Wmf.png"/>
+
+    <link href="/HL8f6Wmf.atom" type="application/atom+xml" rel="alternate" title="Game feed"/>
+
+
+    <link rel="preload" href="//lichess1.org/assets/font80/fonts/lichess.woff" as="font" type="font/woff" crossorigin/>
+    <link rel="manifest" href="/manifest.json"/>
+    <meta name="twitter:site" content="@lichess"/>
+</head>
+<body class="preload base brown Woodi light Basic      playing fixed-scroll"
+
+      data-user="gerodes"
+      data-sound-set="standard"
+      data-socket-domain="socket.lichess.org"
+      data-asset-url="//lichess1.org"
+      data-asset-version="2062"
+      data-nonce="50Fn3czbsEjd6xQp7qGZ"
+      data-zoom="114">
+<form id="blind_mode" action="/toggle-blind-mode" method="POST"><input type="hidden" name="enable" value="1"/><input
+        type="hidden" name="redirect" value="/HL8f6Wmf"/>
+    <button type="submit">Accessibility: Enable blind mode</button>
+</form>
+<div id="site_description">Free online Chess server. Play Chess now in a clean interface. No registration, no ads, no
+    plugin required. Play Chess with the computer, friends or random opponents.
+</div>
+
+
+<a data-icon="E" id="zentog" class="text fbt active none">ZEN MODE</a>
+<div id="top" class="is2d">
+
+
+    <div id="topmenu" class="hover">
+        <section>
+            <a href="/">Play</a>
+            <div>
+                <a href="/?any#hook">Create a game</a>
+                <a href="/tournament">Tournament</a>
+                <a href="/simul">Simultaneous exhibitions</a>
+            </div>
+        </section>
+        <section>
+            <a href="/training">Learn</a>
+            <div>
+                <a href="/learn">Chess basics</a>
+                <a href="/training">Puzzles</a>
+                <a href="/practice">Practice</a>
+                <a href="/training/coordinate">Coordinates</a>
+                <a href="/study">Study</a>
+                <a href="/coach">Coaches</a>
+            </div>
+        </section>
+        <section>
+            <a href="/tv">Watch</a>
+            <div>
+                <a href="/tv">Lichess TV</a>
+                <a href="/games">Current games</a>
+                <a href="/streamer">Streamers</a>
+                <a href="/broadcast">Broadcasts (beta)</a>
+                <a href="/video">Video library</a>
+            </div>
+        </section>
+        <section>
+            <a href="/player">Community</a>
+            <div>
+                <a href="/player">Players</a>
+
+                <a href="/team">Teams</a>
+                <a href="/forum">Forum</a>
+
+                <a href="/qa">Questions &amp; Answers</a>
+            </div>
+        </section>
+        <section>
+            <a href="/analysis">Tools</a>
+            <div>
+                <a href="/analysis">Analysis board</a>
+                <a href="/analysis#explorer">Opening explorer</a>
+                <a href="/editor">Board editor</a>
+                <a href="/paste">Import game</a>
+                <a href="/games/search">Advanced search</a>
+            </div>
+        </section>
+    </div>
+
+    <div id="ham-plate" class="link hint--bottom" data-hint="Menu">
+        <div id="hamburger" data-icon="["></div>
+    </div>
+
+    <div class="dasher">
+        <a id="user_tag" class="toggle link">gerodes</a>
+        <div id="dasher_app" class="dropdown"></div>
+    </div>
+    <div class="challenge_notifications">
+        <a id="challenge_notifications_tag" class="toggle link data-count" data-count="0">
+          <span class="hint--bottom-left" data-hint="Challenges">
+            <span data-icon="U"></span>
+          </span>
+        </a>
+        <div id="challenge_app" class="dropdown"></div>
+    </div>
+    <div class="site_notifications">
+        <a id="site_notifications_tag" class="toggle link data-count" data-count="0">
+          <span class="hint--bottom-left" data-hint="Notifications">
+            <span data-icon=""></span>
+          </span>
+        </a>
+        <div id="notify_app" class="dropdown"></div>
+    </div>
+
+
+    <div id="clinput"><a class="link"><span data-icon="y"></span></a><input spellcheck="false" placeholder="Search"/>
+    </div>
+    <a id="reconnecting" class="link text" onclick="window.location.reload()" data-icon="B">Reconnecting</a>
+</div>
+<div class="content is2d">
+    <div id="site_header">
+        <div id="notifications"></div>
+        <div class="board_left">
+            <h1>
+                <a id="site_title" href="/">lichess<span class="extension">.org</span></a>
+            </h1>
+
+
+            <div class="side">
+                <div class="side_box padded">
+                    <div class="game_infos" data-icon="
+n
+">
+                        <div class="header">
+        <span class="setup">
+
+
+
+<a class="bookmark hint--top" href="/bookmark/HL8f6Wmf" data-hint="Bookmark this game">
+  <span data-icon="t" class="on is3"></span>
+  <span data-icon="s" class="off is3"></span>
+</a>
+
+
+
+
+
+          <span data-hint="Unlimited" class="hint--top">∞</span>
+
+           • Casual •
+
+           <span class="hint--top" data-hint="Correspondence (days per turn)">Corresp.</span>
+
+
+        </span>
+                            Playing right now
+                        </div>
+
+                    </div>
+                    <div class="players">
+
+                        <div class="player color-icon is white text">
+                            <a class="user_link ulpt" href="/@/gerodes">gerodes&nbsp;(1662?)</a>
+                        </div>
+
+                        <div class="player color-icon is black text">
+                            <span class="user_link">Stockfish&nbsp;AI&nbsp;level&nbsp;2&nbsp;(1420)</span>
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+        <div class="under_chat">
+
+            <div class="watchers hidden">
+                <span class="number">&nbsp;</span> Spectators <span class="list inline_userlist"></span>
+            </div>
+
+
+        </div>
+
+    </div>
+    <div id="lichess">
+
+        <div class="round cg-512">
+
+
+            <div class="lichess_game">
+                <div class="lichess_board_wrap">
+                    <div class="lichess_board">
+
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                             viewBox="0 0 800 800">
+                            <rect width="800" height="800" fill="#b58863"/>
+                            <g fill="#f0d9b5" id="a">
+                                <g id="b">
+                                    <g id="c">
+                                        <g id="d">
+                                            <rect width="100" height="100" id="e"/>
+                                            <use x="200" xlink:href="#e"/>
+                                        </g>
+                                        <use x="400" xlink:href="#d"/>
+                                    </g>
+                                    <use x="100" y="100" xlink:href="#c"/>
+                                </g>
+                                <use y="200" xlink:href="#b"/>
+                            </g>
+                            <use y="400" xlink:href="#a"/>
+                        </svg>
+
+
+                        <div class="cg-board-wrap">
+                            <div class="cg-board">
+                                <square class="last-move" style="top:50.0%;left:0.0%"></square>
+                                <square class="last-move" style="top:25.0%;left:25.0%"></square>
+                                <piece class="white queen" style="top:75.0%;left:25.0%"></piece>
+                                <piece class="black bishop" style="top:25.0%;left:25.0%"></piece>
+                                <piece class="black knight" style="top:0.0%;left:12.5%"></piece>
+                                <piece class="white bishop" style="top:50.0%;left:62.5%"></piece>
+                                <piece class="white bishop" style="top:50.0%;left:50.0%"></piece>
+                                <piece class="white knight" style="top:37.5%;left:75.0%"></piece>
+                                <piece class="black pawn" style="top:25.0%;left:12.5%"></piece>
+                                <piece class="white king" style="top:87.5%;left:25.0%"></piece>
+                                <piece class="black pawn" style="top:37.5%;left:25.0%"></piece>
+                                <piece class="black rook" style="top:25.0%;left:62.5%"></piece>
+                                <piece class="white pawn" style="top:62.5%;left:12.5%"></piece>
+                                <piece class="white pawn" style="top:62.5%;left:75.0%"></piece>
+                                <piece class="black rook" style="top:0.0%;left:37.5%"></piece>
+                                <piece class="black pawn" style="top:12.5%;left:75.0%"></piece>
+                                <piece class="white rook" style="top:87.5%;left:37.5%"></piece>
+                                <piece class="black pawn" style="top:12.5%;left:0.0%"></piece>
+                                <piece class="black king" style="top:0.0%;left:87.5%"></piece>
+                                <piece class="white pawn" style="top:62.5%;left:25.0%"></piece>
+                                <piece class="white pawn" style="top:25.0%;left:37.5%"></piece>
+                                <piece class="white pawn" style="top:75.0%;left:0.0%"></piece>
+                                <piece class="black queen" style="top:12.5%;left:37.5%"></piece>
+                                <piece class="white rook" style="top:87.5%;left:50.0%"></piece>
+                                <piece class="white pawn" style="top:75.0%;left:87.5%"></piece>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="underboard">
+                <div class="center">
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<div id="friend_box" data-preload="NM Chess-Network,BOT LeelaChess"
+     data-playing=""
+     data-patrons="chess-network"
+     data-studying="">
+    <div class="title"><strong class="online"> </strong> Online friends</div>
+    <div class="content_wrap">
+        <div class="content list"></div>
+        <div class="nobody none">
+            <span>No friends online</span>
+            <a class="find button" href="/player/opponents">
+                <span class="is3 text" data-icon="h">Find friends</span>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<script async defer src="//lichess1.org/assets/compiled/lichess.site.min.js?v=2062"></script>
+
+<script async defer src="//lichess1.org/assets/compiled/lichess.round.min.js?v=2062"></script>
+<script nonce="50Fn3czbsEjd6xQp7qGZ">
+    window.customWS = true;
+    window.onload = function () {
+        LichessRound.boot({
+            data: {
+                "game": {
+                    "id": "HL8f6Wmf",
+                    "variant": {"key": "standard", "name": "Standard", "short": "Std"},
+                    "speed": "correspondence",
+                    "perf": "correspondence",
+                    "rated": false,
+                    "initialFen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+                    "fen": "1n1r3k/p2q2p1/1pbP1r2/2p3N1/4BB2/1PP3P1/P1Q4P/2KRR3 w - - 1 26",
+                    "player": "white",
+                    "turns": 50,
+                    "startedAtTurn": 0,
+                    "source": "ai",
+                    "status": {"id": 20, "name": "started"},
+                    "createdAt": 1528303101932,
+                    "lastMove": "a4c6"
+                },
+                "player": {
+                    "color": "white",
+                    "user": {
+                        "id": "gerodes",
+                        "username": "gerodes",
+                        "online": true,
+                        "perfs": {"correspondence": {"games": 1, "rating": 1662, "rd": 290, "prog": 0, "prov": true}},
+                        "language": "en-GB"
+                    },
+                    "rating": 1662,
+                    "provisional": true,
+                    "id": "69Da",
+                    "version": 50,
+                    "onGame": true
+                },
+                "opponent": {"color": "black", "ai": 2, "onGame": true},
+                "url": {"socket": "/HL8f6Wmf69Da/socket/v2", "round": "/HL8f6Wmf69Da"},
+                "pref": {
+                    "animationDuration": 300,
+                    "coords": 2,
+                    "replay": 2,
+                    "autoQueen": 2,
+                    "clockTenths": 1,
+                    "moveEvent": 2,
+                    "clockBar": true,
+                    "confirmResign": true,
+                    "rookCastle": true,
+                    "highlight": true,
+                    "destination": true,
+                    "enablePremove": true,
+                    "showCaptured": true
+                },
+                "takebackable": true,
+                "possibleMoves": {
+                    "c3": "c4",
+                    "b3": "b4",
+                    "e1": "e2e3f1g1h1",
+                    "c2": "b2d2e2f2g2d3b1",
+                    "e4": "d5c6f5g6h7d3f3g2h1",
+                    "h2": "h3h4",
+                    "c1": "b1b2d2",
+                    "f4": "e5e3d2",
+                    "g5": "f7f3h7h3e6",
+                    "d1": "d2d3d4d5",
+                    "g3": "g4",
+                    "a2": "a3a4"
+                },
+                "steps": [{
+                    "ply": 0,
+                    "uci": null,
+                    "san": null,
+                    "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+                }, {
+                    "ply": 1,
+                    "uci": "e2e4",
+                    "san": "e4",
+                    "fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1"
+                }, {
+                    "ply": 2,
+                    "uci": "e7e5",
+                    "san": "e5",
+                    "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2"
+                }, {
+                    "ply": 3,
+                    "uci": "f2f4",
+                    "san": "f4",
+                    "fen": "rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR b KQkq - 0 2"
+                }, {
+                    "ply": 4,
+                    "uci": "d7d6",
+                    "san": "d6",
+                    "fen": "rnbqkbnr/ppp2ppp/3p4/4p3/4PP2/8/PPPP2PP/RNBQKBNR w KQkq - 0 3"
+                }, {
+                    "ply": 5,
+                    "uci": "g1f3",
+                    "san": "Nf3",
+                    "fen": "rnbqkbnr/ppp2ppp/3p4/4p3/4PP2/5N2/PPPP2PP/RNBQKB1R b KQkq - 1 3"
+                }, {
+                    "ply": 6,
+                    "uci": "b8d7",
+                    "san": "Nd7",
+                    "fen": "r1bqkbnr/pppn1ppp/3p4/4p3/4PP2/5N2/PPPP2PP/RNBQKB1R w KQkq - 2 4"
+                }, {
+                    "ply": 7,
+                    "uci": "d2d4",
+                    "san": "d4",
+                    "fen": "r1bqkbnr/pppn1ppp/3p4/4p3/3PPP2/5N2/PPP3PP/RNBQKB1R b KQkq - 0 4"
+                }, {
+                    "ply": 8,
+                    "uci": "g8f6",
+                    "san": "Ngf6",
+                    "fen": "r1bqkb1r/pppn1ppp/3p1n2/4p3/3PPP2/5N2/PPP3PP/RNBQKB1R w KQkq - 1 5"
+                }, {
+                    "ply": 9,
+                    "uci": "d4e5",
+                    "san": "dxe5",
+                    "fen": "r1bqkb1r/pppn1ppp/3p1n2/4P3/4PP2/5N2/PPP3PP/RNBQKB1R b KQkq - 0 5"
+                }, {
+                    "ply": 10,
+                    "uci": "d6e5",
+                    "san": "dxe5",
+                    "fen": "r1bqkb1r/pppn1ppp/5n2/4p3/4PP2/5N2/PPP3PP/RNBQKB1R w KQkq - 0 6"
+                }, {
+                    "ply": 11,
+                    "uci": "f4e5",
+                    "san": "fxe5",
+                    "fen": "r1bqkb1r/pppn1ppp/5n2/4P3/4P3/5N2/PPP3PP/RNBQKB1R b KQkq - 0 6"
+                }, {
+                    "ply": 12,
+                    "uci": "f6e4",
+                    "san": "Nxe4",
+                    "fen": "r1bqkb1r/pppn1ppp/8/4P3/4n3/5N2/PPP3PP/RNBQKB1R w KQkq - 0 7"
+                }, {
+                    "ply": 13,
+                    "uci": "c1e3",
+                    "san": "Be3",
+                    "fen": "r1bqkb1r/pppn1ppp/8/4P3/4n3/4BN2/PPP3PP/RN1QKB1R b KQkq - 1 7"
+                }, {
+                    "ply": 14,
+                    "uci": "c7c5",
+                    "san": "c5",
+                    "fen": "r1bqkb1r/pp1n1ppp/8/2p1P3/4n3/4BN2/PPP3PP/RN1QKB1R w KQkq - 0 8"
+                }, {
+                    "ply": 15,
+                    "uci": "f1d3",
+                    "san": "Bd3",
+                    "fen": "r1bqkb1r/pp1n1ppp/8/2p1P3/4n3/3BBN2/PPP3PP/RN1QK2R b KQkq - 1 8"
+                }, {
+                    "ply": 16,
+                    "uci": "d8a5",
+                    "san": "Qa5+",
+                    "fen": "r1b1kb1r/pp1n1ppp/8/q1p1P3/4n3/3BBN2/PPP3PP/RN1QK2R w KQkq - 2 9",
+                    "check": true
+                }, {
+                    "ply": 17,
+                    "uci": "c2c3",
+                    "san": "c3",
+                    "fen": "r1b1kb1r/pp1n1ppp/8/q1p1P3/4n3/2PBBN2/PP4PP/RN1QK2R b KQkq - 0 9"
+                }, {
+                    "ply": 18,
+                    "uci": "f7f5",
+                    "san": "f5",
+                    "fen": "r1b1kb1r/pp1n2pp/8/q1p1Pp2/4n3/2PBBN2/PP4PP/RN1QK2R w KQkq f6 0 10"
+                }, {
+                    "ply": 19,
+                    "uci": "b1d2",
+                    "san": "Nbd2",
+                    "fen": "r1b1kb1r/pp1n2pp/8/q1p1Pp2/4n3/2PBBN2/PP1N2PP/R2QK2R b KQkq - 1 10"
+                }, {
+                    "ply": 20,
+                    "uci": "a5b6",
+                    "san": "Qb6",
+                    "fen": "r1b1kb1r/pp1n2pp/1q6/2p1Pp2/4n3/2PBBN2/PP1N2PP/R2QK2R w KQkq - 2 11"
+                }, {
+                    "ply": 21,
+                    "uci": "d1c2",
+                    "san": "Qc2",
+                    "fen": "r1b1kb1r/pp1n2pp/1q6/2p1Pp2/4n3/2PBBN2/PPQN2PP/R3K2R b KQkq - 3 11"
+                }, {
+                    "ply": 22,
+                    "uci": "b6c6",
+                    "san": "Qc6",
+                    "fen": "r1b1kb1r/pp1n2pp/2q5/2p1Pp2/4n3/2PBBN2/PPQN2PP/R3K2R w KQkq - 4 12"
+                }, {
+                    "ply": 23,
+                    "uci": "d2e4",
+                    "san": "Nxe4",
+                    "fen": "r1b1kb1r/pp1n2pp/2q5/2p1Pp2/4N3/2PBBN2/PPQ3PP/R3K2R b KQkq - 0 12"
+                }, {
+                    "ply": 24,
+                    "uci": "b7b6",
+                    "san": "b6",
+                    "fen": "r1b1kb1r/p2n2pp/1pq5/2p1Pp2/4N3/2PBBN2/PPQ3PP/R3K2R w KQkq - 0 13"
+                }, {
+                    "ply": 25,
+                    "uci": "e4d6",
+                    "san": "Nd6+",
+                    "fen": "r1b1kb1r/p2n2pp/1pqN4/2p1Pp2/8/2PBBN2/PPQ3PP/R3K2R b KQkq - 1 13",
+                    "check": true
+                }, {
+                    "ply": 26,
+                    "uci": "f8d6",
+                    "san": "Bxd6",
+                    "fen": "r1b1k2r/p2n2pp/1pqb4/2p1Pp2/8/2PBBN2/PPQ3PP/R3K2R w KQkq - 0 14"
+                }, {
+                    "ply": 27,
+                    "uci": "e5d6",
+                    "san": "exd6",
+                    "fen": "r1b1k2r/p2n2pp/1pqP4/2p2p2/8/2PBBN2/PPQ3PP/R3K2R b KQkq - 0 14"
+                }, {
+                    "ply": 28,
+                    "uci": "c8b7",
+                    "san": "Bb7",
+                    "fen": "r3k2r/pb1n2pp/1pqP4/2p2p2/8/2PBBN2/PPQ3PP/R3K2R w KQkq - 1 15"
+                }, {
+                    "ply": 29,
+                    "uci": "d3f5",
+                    "san": "Bxf5",
+                    "fen": "r3k2r/pb1n2pp/1pqP4/2p2B2/8/2P1BN2/PPQ3PP/R3K2R b KQkq - 0 15"
+                }, {
+                    "ply": 30,
+                    "uci": "a8c8",
+                    "san": "Rc8",
+                    "fen": "2r1k2r/pb1n2pp/1pqP4/2p2B2/8/2P1BN2/PPQ3PP/R3K2R w KQk - 1 16"
+                }, {
+                    "ply": 31,
+                    "uci": "e1a1",
+                    "san": "O-O-O",
+                    "fen": "2r1k2r/pb1n2pp/1pqP4/2p2B2/8/2P1BN2/PPQ3PP/2KR3R b k - 2 16"
+                }, {
+                    "ply": 32,
+                    "uci": "e8h8",
+                    "san": "O-O",
+                    "fen": "2r2rk1/pb1n2pp/1pqP4/2p2B2/8/2P1BN2/PPQ3PP/2KR3R w - - 3 17"
+                }, {
+                    "ply": 33,
+                    "uci": "f5h7",
+                    "san": "Bxh7+",
+                    "fen": "2r2rk1/pb1n2pB/1pqP4/2p5/8/2P1BN2/PPQ3PP/2KR3R b - - 0 17",
+                    "check": true
+                }, {
+                    "ply": 34,
+                    "uci": "g8h8",
+                    "san": "Kh8",
+                    "fen": "2r2r1k/pb1n2pB/1pqP4/2p5/8/2P1BN2/PPQ3PP/2KR3R w - - 1 18"
+                }, {
+                    "ply": 35,
+                    "uci": "f3g5",
+                    "san": "Ng5",
+                    "fen": "2r2r1k/pb1n2pB/1pqP4/2p3N1/8/2P1B3/PPQ3PP/2KR3R b - - 2 18"
+                }, {
+                    "ply": 36,
+                    "uci": "d7b8",
+                    "san": "Nb8",
+                    "fen": "1nr2r1k/pb4pB/1pqP4/2p3N1/8/2P1B3/PPQ3PP/2KR3R w - - 3 19"
+                }, {
+                    "ply": 37,
+                    "uci": "c2g6",
+                    "san": "Qg6",
+                    "fen": "1nr2r1k/pb4pB/1pqP2Q1/2p3N1/8/2P1B3/PP4PP/2KR3R b - - 4 19"
+                }, {
+                    "ply": 38,
+                    "uci": "c8e8",
+                    "san": "Rce8",
+                    "fen": "1n2rr1k/pb4pB/1pqP2Q1/2p3N1/8/2P1B3/PP4PP/2KR3R w - - 5 20"
+                }, {
+                    "ply": 39,
+                    "uci": "h1e1",
+                    "san": "Rhe1",
+                    "fen": "1n2rr1k/pb4pB/1pqP2Q1/2p3N1/8/2P1B3/PP4PP/2KRR3 b - - 6 20"
+                }, {
+                    "ply": 40,
+                    "uci": "c6d7",
+                    "san": "Qd7",
+                    "fen": "1n2rr1k/pb1q2pB/1p1P2Q1/2p3N1/8/2P1B3/PP4PP/2KRR3 w - - 7 21"
+                }, {
+                    "ply": 41,
+                    "uci": "g2g3",
+                    "san": "g3",
+                    "fen": "1n2rr1k/pb1q2pB/1p1P2Q1/2p3N1/8/2P1B1P1/PP5P/2KRR3 b - - 0 21"
+                }, {
+                    "ply": 42,
+                    "uci": "e8d8",
+                    "san": "Rd8",
+                    "fen": "1n1r1r1k/pb1q2pB/1p1P2Q1/2p3N1/8/2P1B1P1/PP5P/2KRR3 w - - 1 22"
+                }, {
+                    "ply": 43,
+                    "uci": "e3f4",
+                    "san": "Bf4",
+                    "fen": "1n1r1r1k/pb1q2pB/1p1P2Q1/2p3N1/5B2/2P3P1/PP5P/2KRR3 b - - 2 22"
+                }, {
+                    "ply": 44,
+                    "uci": "f8f6",
+                    "san": "Rf6",
+                    "fen": "1n1r3k/pb1q2pB/1p1P1rQ1/2p3N1/5B2/2P3P1/PP5P/2KRR3 w - - 3 23"
+                }, {
+                    "ply": 45,
+                    "uci": "g6c2",
+                    "san": "Qc2",
+                    "fen": "1n1r3k/pb1q2pB/1p1P1r2/2p3N1/5B2/2P3P1/PPQ4P/2KRR3 b - - 4 23"
+                }, {
+                    "ply": 46,
+                    "uci": "b7c6",
+                    "san": "Bc6",
+                    "fen": "1n1r3k/p2q2pB/1pbP1r2/2p3N1/5B2/2P3P1/PPQ4P/2KRR3 w - - 5 24"
+                }, {
+                    "ply": 47,
+                    "uci": "h7e4",
+                    "san": "Be4",
+                    "fen": "1n1r3k/p2q2p1/1pbP1r2/2p3N1/4BB2/2P3P1/PPQ4P/2KRR3 b - - 6 24"
+                }, {
+                    "ply": 48,
+                    "uci": "c6a4",
+                    "san": "Ba4",
+                    "fen": "1n1r3k/p2q2p1/1p1P1r2/2p3N1/b3BB2/2P3P1/PPQ4P/2KRR3 w - - 7 25"
+                }, {
+                    "ply": 49,
+                    "uci": "b2b3",
+                    "san": "b3",
+                    "fen": "1n1r3k/p2q2p1/1p1P1r2/2p3N1/b3BB2/1PP3P1/P1Q4P/2KRR3 b - - 0 25"
+                }, {
+                    "ply": 50,
+                    "uci": "a4c6",
+                    "san": "Bc6",
+                    "fen": "1n1r3k/p2q2p1/1pbP1r2/2p3N1/4BB2/1PP3P1/P1Q4P/2KRR3 w - - 1 26"
+                }]
+            },
+            i18n:
+                {
+                    "flipBoard": "Flip board",
+                    "aiNameLevelAiLevel": "%1$s level %2$s",
+                    "yourTurn": "Your turn",
+                    "abortGame": "Abort game",
+                    "proposeATakeback": "Propose a takeback",
+                    "offerDraw": "Offer draw",
+                    "resign": "Resign",
+                    "opponentLeftChoices": "The other player may have left the game. You can claim victory, call the game a draw, or wait.",
+                    "forceResignation": "Claim victory",
+                    "forceDraw": "Call draw",
+                    "threefoldRepetition": "Threefold repetition",
+                    "claimADraw": "Claim a draw",
+                    "drawOfferSent": "Draw offer sent",
+                    "cancel": "Cancel",
+                    "yourOpponentOffersADraw": "Your opponent offers a draw",
+                    "accept": "Accept",
+                    "decline": "Decline",
+                    "takebackPropositionSent": "Takeback sent",
+                    "yourOpponentProposesATakeback": "Your opponent proposes a takeback",
+                    "thisPlayerUsesChessComputerAssistance": "This player uses chess computer assistance",
+                    "gameAborted": "Game aborted",
+                    "checkmate": "Checkmate",
+                    "whiteResigned": "White resigned",
+                    "blackResigned": "Black resigned",
+                    "stalemate": "Stalemate",
+                    "whiteLeftTheGame": "White left the game",
+                    "blackLeftTheGame": "Black left the game",
+                    "draw": "Draw",
+                    "timeOut": "Time out",
+                    "whiteIsVictorious": "White is victorious",
+                    "blackIsVictorious": "Black is victorious",
+                    "withdraw": "Withdraw",
+                    "rematch": "Rematch",
+                    "rematchOfferSent": "Rematch offer sent",
+                    "rematchOfferAccepted": "Rematch offer accepted",
+                    "waitingForOpponent": "Waiting for opponent",
+                    "cancelRematchOffer": "Cancel rematch offer",
+                    "newOpponent": "New opponent",
+                    "moveConfirmation": "Move confirmation",
+                    "viewRematch": "View rematch",
+                    "whitePlays": "White to play",
+                    "blackPlays": "Black to play",
+                    "giveNbSeconds:one": "Give %s second",
+                    "giveNbSeconds": "Give %s seconds",
+                    "giveMoreTime": "Give more time",
+                    "gameOver": "Game Over",
+                    "analysis": "Analysis board",
+                    "yourOpponentWantsToPlayANewGameWithYou": "Your opponent wants to play a new game with you",
+                    "oneDay": "One day",
+                    "nbDays:one": "%s day",
+                    "nbDays": "%s days",
+                    "nbHours:one": "%s hour",
+                    "nbHours": "%s hours"
+                }
+            ,
+            userId: "gerodes",
+
+            chat: null
+        }, document.getElementById('lichess'));
+    };
+</script>
+
+<script nonce="50Fn3czbsEjd6xQp7qGZ">lichess.quantity = function (c) {
+    return c == 1 ? 'one' : 'other';
+};
+(function () {
+    lichess.timeagoLocale = function (s, n) {
+        return [["just now", "right now"], ["%s seconds ago", "in %s seconds"], ["1 minute ago", "in 1 minute"], ["%s minutes ago", "in %s minutes"], ["1 hour ago", "in 1 hour"], ["%s hours ago", "in %s hours"], ["1 day ago", "in 1 day"], ["%s days ago", "in %s days"], ["1 week ago", "in 1 week"], ["%s weeks ago", "in %s weeks"], ["1 month ago", "in 1 month"], ["%s months ago", "in %s months"], ["1 year ago", "in 1 year"], ["%s years ago", "in %s years"]][n]
+    };
+})();</script>
+
+</body>
+</html>
+
+
+

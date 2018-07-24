@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "stockfish": "^8.0.0",
+    "node": "^8.11.2",
+    "requirejs": "^2.3.5"
+  }
+}
