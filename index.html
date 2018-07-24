@@ -5,41 +5,54 @@
 </head>
 <body>
 <script>
-    let GO = ["depth 20", "movetime 1000", "infinite"][0];
+    let go_message = ["depth 3", "movetime 1000", "infinite"][0];
     let worker_cubicle = [];
     let worker_output = [];
     let worker_count = 0;
-    let centipawn_search = "score cp ";
+    let centipawn_search_token = "score cp ";
+
+    let centipawns = [];
 
     function create_sf_worker(fen) {
         let worker_number = worker_count;
         let stockfish = new Worker("./node_modules/stockfish/src/stockfish.js");
         worker_cubicle.push(stockfish);
         worker_output.push([fen]);
+        centipawns.push([]);
         stockfish.postMessage("position fen '" + fen + "' ");
-        stockfish.postMessage("go " + GO);
+        stockfish.postMessage("go " + go_message);
         stockfish.onmessage = function (event) {
-            worker_output[worker_number].push(event.data ? event.data : event);
+            let msg = event.data ? event.data : event;
+            worker_output[worker_number].push(msg);
+            let cp = extract_value(msg, centipawn_search_token);
+            if (cp){
+                centipawns[worker_number] = parseInt(cp) ;
+            }
         };
         worker_count++;
     }
 
     function extract_value(msg, searched_string) {
         let value_index = msg.indexOf(searched_string);
-        if (value_index === -1 ){return null;}
+        if (value_index === -1) {
+            return null;
+        }
 
         value_index += searched_string.length;
         let value_index_end = msg.indexOf(" ", value_index);
-        return msg.substring(value_index, value_index_end);
+        //console.log(msg);
+        //console.log(value_index, value_index_end === -1 ? msg.length : value_index_end);
+        return msg.substring(value_index, value_index_end === -1 ? msg.length : value_index_end);
     }
 
     let initialFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
     let someFen = "8/R7/2k5/8/8/7K/8/8 b - - 5 63";
+    let someFen2 = "8/5R1R/4k3/2B1N3/5P1P/2K5/P5P1/8 w - - 9 40";
 
     create_sf_worker(initialFen);
     create_sf_worker(someFen);
-    let msg = "info depth 1 seldepth 1 multipv 1 baseTurn w score cp 90 nodes 20 nps 60 time 330 pv e2e4 pvSan e4 bmc 5";
-    console.log(extract_value(msg, centipawn_search));
+    //create_sf_worker(someFen2);
+
 
 </script>
 </body>
