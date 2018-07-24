@@ -5,7 +5,7 @@
 </head>
 <body>
 <script>
-    let go_message = ["depth 15", "movetime 1000", "infinite"][0];
+    let go_message = ["depth 5", "movetime 1000", "infinite"][1];
     let worker_cubicle = [];
     let worker_output = [];
     let worker_count = 0;
@@ -20,8 +20,8 @@
         let stockfish = new Worker("./node_modules/stockfish/src/stockfish.js");
         worker_cubicle.push(stockfish);
         worker_output.push([fen]);
-        centipawns.push([]);
-        centipawn_diff.push([]);
+        centipawns.push(0);
+        centipawn_diff.push(0);
         stockfish.postMessage("position fen '" + fen + "' ");
         stockfish.postMessage("go " + go_message);
         stockfish.onmessage = function (event) {
@@ -89,7 +89,17 @@
         }
     }
 
+
     create_worker_for_every_position();
+
+
+
+    function log_table() {
+        console.table([centipawns, centipawn_diff]);
+    }
+    setInterval(log_table, 1000);
+
+
 </script>
 </body>
 </html>
