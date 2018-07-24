@@ -5,13 +5,15 @@
 </head>
 <body>
 <script>
-    let go_message = ["depth 3", "movetime 1000", "infinite"][0];
+    let go_message = ["depth 15", "movetime 1000", "infinite"][0];
     let worker_cubicle = [];
     let worker_output = [];
     let worker_count = 0;
     let centipawn_search_token = "score cp ";
 
     let centipawns = [];
+    let all_fens = null;
+    let centipawn_diff = [];
 
     function create_sf_worker(fen) {
         let worker_number = worker_count;
@@ -19,14 +21,16 @@
         worker_cubicle.push(stockfish);
         worker_output.push([fen]);
         centipawns.push([]);
+        centipawn_diff.push([]);
         stockfish.postMessage("position fen '" + fen + "' ");
         stockfish.postMessage("go " + go_message);
         stockfish.onmessage = function (event) {
             let msg = event.data ? event.data : event;
             worker_output[worker_number].push(msg);
             let cp = extract_value(msg, centipawn_search_token);
-            if (cp){
-                centipawns[worker_number] = parseInt(cp) ;
+            if (cp) {
+                centipawns[worker_number] = parseInt(cp);
+                centipawn_diff[worker_number] = centipawns[worker_number] - centipawns[0];
             }
         };
         worker_count++;
@@ -45,15 +49,47 @@
         return msg.substring(value_index, value_index_end === -1 ? msg.length : value_index_end);
     }
 
-    let initialFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
-    let someFen = "8/R7/2k5/8/8/7K/8/8 b - - 5 63";
-    let someFen2 = "8/5R1R/4k3/2B1N3/5P1P/2K5/P5P1/8 w - - 9 40";
+    function get_without_every_piece(fen) {
+        let fens = [];
+        for (let i = 0; i < fen.indexOf(" "); ++i) {
+            if (isNaN(fen[i])) {
+                if (fen[i] !== "/" && fen[i].toLowerCase() !== "k") {
+                    fens.push(subtituteOnePiece(fen, i));
+                }
+            }
+        }
+        return fens;
+    }
 
-    create_sf_worker(initialFen);
-    create_sf_worker(someFen);
-    //create_sf_worker(someFen2);
+    function subtituteOnePiece(fen, index) {
+        function isNumeric(str) {
+            return !isNaN(str);
+        }
 
+        let isLeftNumber = isNumeric(fen[index - 1]);
+        let isRightNumber = isNumeric(fen[index + 1]);
+        let leftIndex = isLeftNumber ? index - 1 : index;
+        let rightIndex = isRightNumber ? index + 1 : index;
+        let left = isLeftNumber ? parseInt(fen[index - 1]) : 0;
+        let right = isRightNumber ? parseInt(fen[index + 1]) : 0;
+        let leftSub = fen.substring(0, leftIndex);
+        let rightSub = fen.substring(rightIndex + 1);
+        return leftSub + (left + right + 1) + rightSub;
+    }
 
+    function create_worker_for_every_position() {
+        //let initialFen = "2p5/8/k2Q4/8/8/8/8/4K3 w KQkq - 0 1";
+        let initialFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+
+        create_sf_worker(initialFen);
+        all_fens = get_without_every_piece(initialFen);
+        console.log(all_fens);
+        for (let fen of all_fens) {
+            create_sf_worker(fen);
+        }
+    }
+
+    create_worker_for_every_position();
 </script>
 </body>
 </html>
