@@ -5,7 +5,7 @@
 </head>
 <body>
 <script>
-    let go_message = ["depth 5", "movetime 1000", "infinite"][1];
+    let go_message = ["depth 15", "movetime 1000", "infinite"][1];
     let worker_cubicle = [];
     let worker_output = [];
     let worker_count = 0;
@@ -44,8 +44,6 @@
 
         value_index += searched_string.length;
         let value_index_end = msg.indexOf(" ", value_index);
-        //console.log(msg);
-        //console.log(value_index, value_index_end === -1 ? msg.length : value_index_end);
         return msg.substring(value_index, value_index_end === -1 ? msg.length : value_index_end);
     }
 
@@ -54,14 +52,14 @@
         for (let i = 0; i < fen.indexOf(" "); ++i) {
             if (isNaN(fen[i])) {
                 if (fen[i] !== "/" && fen[i].toLowerCase() !== "k") {
-                    fens.push(subtituteOnePiece(fen, i));
+                    fens.push(substituteOnePiece(fen, i));
                 }
             }
         }
         return fens;
     }
 
-    function subtituteOnePiece(fen, index) {
+    function substituteOnePiece(fen, index) {
         function isNumeric(str) {
             return !isNaN(str);
         }
@@ -80,24 +78,24 @@
     function create_worker_for_every_position() {
         //let initialFen = "2p5/8/k2Q4/8/8/8/8/4K3 w KQkq - 0 1";
         let initialFen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+        //let initialFen = "r4bk1/q6p/4Rpp1/2pPp3/2P5/3Q1N1P/5PP1/6K1 b - - 4 36";
 
         create_sf_worker(initialFen);
         all_fens = get_without_every_piece(initialFen);
-        console.log(all_fens);
         for (let fen of all_fens) {
             create_sf_worker(fen);
         }
     }
 
-
     create_worker_for_every_position();
-
 
 
     function log_table() {
         console.table([centipawns, centipawn_diff]);
+        //console.log(centipawn_diff.reduce((a, b) => a + b))
     }
-    setInterval(log_table, 1000);
+
+    setInterval(log_table, 2000);
 
 
 </script>
