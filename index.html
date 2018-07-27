@@ -47,33 +47,8 @@
         return msg.substring(value_index, value_index_end === -1 ? msg.length : value_index_end);
     }
 
-    function get_without_every_piece(fen) {
-        let fens = [];
-        for (let i = 0; i < fen.indexOf(" "); ++i) {
-            if (isNaN(fen[i])) {
-                if (fen[i] !== "/" && fen[i].toLowerCase() !== "k") {
-                    fens.push(substituteOnePiece(fen, i));
-                }
-            }
-        }
-        return fens;
-    }
+    get_without_every_piece=Q=>Q.replace(/(\d?)[A-Za-z](?=(\d?)(.*))(?=(.* ){5})/g,($,L,R,U)=>W.push(Q.slice(0,Q.length-U.length-!!L-!!R-1)+(L-~R)+U),W=[])&&W;
 
-    function substituteOnePiece(fen, index) {
-        function isNumeric(str) {
-            return !isNaN(str);
-        }
-
-        let isLeftNumber = isNumeric(fen[index - 1]);
-        let isRightNumber = isNumeric(fen[index + 1]);
-        let leftIndex = isLeftNumber ? index - 1 : index;
-        let rightIndex = isRightNumber ? index + 1 : index;
-        let left = isLeftNumber ? parseInt(fen[index - 1]) : 0;
-        let right = isRightNumber ? parseInt(fen[index + 1]) : 0;
-        let leftSub = fen.substring(0, leftIndex);
-        let rightSub = fen.substring(rightIndex + 1);
-        return leftSub + (left + right + 1) + rightSub;
-    }
 
     function create_worker_for_every_position() {
         //let initialFen = "2p5/8/k2Q4/8/8/8/8/4K3 w KQkq - 0 1";
@@ -92,6 +67,7 @@
 
     function log_table() {
         console.table([centipawns, centipawn_diff]);
+        console.table(all_fens);
         //console.log(centipawn_diff.reduce((a, b) => a + b))
     }
 
